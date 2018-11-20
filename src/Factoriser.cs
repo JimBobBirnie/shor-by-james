@@ -7,10 +7,12 @@ namespace ShorByJames
     public class Factoriser
     {
         private IRandomNumberHelper _randomNumberHelper;
+        private IPeriodFinder _periodFinder;
 
-        public Factoriser(IRandomNumberHelper randomNumberHelper)
+        public Factoriser(IRandomNumberHelper randomNumberHelper, IPeriodFinder periodFinder)
         {
             _randomNumberHelper = randomNumberHelper;
+            _periodFinder = periodFinder;
         }
         public IEnumerable<int> Factorise(int numberToFactorise)
         {
@@ -19,6 +21,7 @@ namespace ShorByJames
             {
                 return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
             }
+            var period = _periodFinder.FindPeriod(randomTestNumber, numberToFactorise);
             return new int[] { 0, 0 };
         }
     }
