@@ -11,9 +11,10 @@ namespace ShorByJames
         {
             _randomNumberHelper = randomNumberHelper;
         }
-        public void Factorise(int numberToFactorise)
+        public int Factorise(int numberToFactorise)
         {
-            throw new NotImplementedException();
+            var randomTestNumber = _randomNumberHelper.GetRandomLessThan(numberToFactorise);
+            return 0;
         }
     }
 }
