@@ -1,4 +1,5 @@
-﻿using Microsoft.Quantum.Simulation.Core;
+﻿using System;
+using Microsoft.Quantum.Simulation.Core;
 using Microsoft.Quantum.Simulation.Simulators;
 
 namespace shor_by_james
@@ -7,7 +8,7 @@ namespace shor_by_james
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine($"Hello world!");
         }
     }
 }
