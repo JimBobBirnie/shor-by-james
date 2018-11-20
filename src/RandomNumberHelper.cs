@@ -1,10 +1,15 @@
+using System;
+using System.Collections.Generic;
+
 namespace ShorByJames
 {
     public class RandomNumberHelper : IRandomNumberHelper
     {
-        public int GetRandomLessThan(int numberToFactorise)
+        public int GetRandomGreaterThanTwoLessThan(int numberToFactorise
+        , IEnumerable<int> exclusions = null)
         {
-            throw new System.NotImplementedException();
+            Random rand = new Random();
+            return rand.Next(2, numberToFactorise-1);
         }
     }
 }

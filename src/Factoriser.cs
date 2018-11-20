@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 
 namespace ShorByJames
 {
@@ -11,10 +12,14 @@ namespace ShorByJames
         {
             _randomNumberHelper = randomNumberHelper;
         }
-        public int Factorise(int numberToFactorise)
+        public IEnumerable<int> Factorise(int numberToFactorise)
         {
-            var randomTestNumber = _randomNumberHelper.GetRandomLessThan(numberToFactorise);
-            return 0;
+            var randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThan(numberToFactorise);
+            if (numberToFactorise % randomTestNumber == 0)
+            {
+                return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
+            }
+            return new int[] { 0, 0 };
         }
     }
 }

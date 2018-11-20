@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+
 namespace ShorByJames
 {
     public interface IRandomNumberHelper
     {
-        int GetRandomLessThan(int numberToFactorise);
+        int GetRandomGreaterThanTwoLessThan(int numberToFactorise
+            , IEnumerable<int> exclusions = null);
     }
 }
