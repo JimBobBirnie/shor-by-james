@@ -3,10 +3,11 @@ using Xunit;
 
 
 public class ShorsAlgorithmTest{
-    private Factoriser _factoriser;
-
     [Fact]    
     public void FactoriseGetsARandomNumberLessThanN(){
+        var factoriser = new Factoriser();
+        var numberToFactorise = 15;
+        factoriser.Factorise(numberToFactorise);
         Assert.True(false);
     }
 }
