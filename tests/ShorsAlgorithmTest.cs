@@ -87,6 +87,27 @@ namespace ShorByJames
 
         }
 
+        [Fact]
+        public void WhenHalfPeriodExponentIsMinusOneFactoriseGetsADifferentRandomNumber()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+                .Returns(7);
+
+            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
+                .Returns(6);
+
+            _modularExponentHelpler.Setup(s => s.GetExponentModN(7, 3, 15))
+                .Returns(12)
+                .Verifiable();
+
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
+
+            var result = factoriser.Factorise(numberToFactorise);
+
+            _modularExponentHelpler.VerifyAll();
+        }
+
     }
 
 

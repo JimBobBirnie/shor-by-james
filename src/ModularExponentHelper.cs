@@ -12,5 +12,14 @@
             }
             return exponent;
         }
+
+        public int GetExponentModN(int smallerNumber, int exponent, int numberToFactorise)
+        {
+            if (exponent == 1)
+            {
+                return smallerNumber;
+            }
+            return (smallerNumber * GetExponentModN(smallerNumber, exponent - 1, numberToFactorise)) % numberToFactorise;
+        }
     }
 }

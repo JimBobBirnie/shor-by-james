@@ -22,7 +22,9 @@ namespace ShorByJames
                 return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
             }
             var period = _periodFinder.FindPeriod(randomTestNumber, numberToFactorise);
-            if (period % 2 != 0)
+            if (period % 2 != 0 ||
+                _periodFinder.GetExponentModN(randomTestNumber, period / 2, numberToFactorise)
+                 == numberToFactorise - 1)
             {
                 List<int> numbersTriedAlready = new List<int> { period };
                 randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise, numbersTriedAlready);
