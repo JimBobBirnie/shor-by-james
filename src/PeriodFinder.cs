@@ -4,7 +4,13 @@ namespace ShorByJames
     {
         public int FindPeriod(int smallerNumber, int numberToFactorise)
         {
-            return 0;
+            int exponent = 1;
+            int currentResult = smallerNumber;
+            while(currentResult != 1){
+                exponent ++;
+                currentResult = (currentResult * smallerNumber) % numberToFactorise;
+            }
+            return exponent;
         }
     }
 }
