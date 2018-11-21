@@ -88,7 +88,7 @@ namespace ShorByJames
         }
 
         [Fact]
-        public void WhenHalfPeriodExponentIsMinusOneFactoriseGetsADifferentRandomNumber()
+        public void WhenPeriodIsEvenFactoriseChecksHalfPeriod()
         {
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
