@@ -5,6 +5,6 @@ namespace ShorByJames
     public interface IRandomNumberHelper
     {
         int GetRandomGreaterThanTwoLessThanN(int numberToFactorise
-            , IEnumerable<int> exclusions = null);
+            , List<int> exclusions = null);
     }
 }

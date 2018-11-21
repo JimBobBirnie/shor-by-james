@@ -1,15 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ShorByJames
 {
     public class RandomNumberHelper : IRandomNumberHelper
     {
         public int GetRandomGreaterThanTwoLessThanN(int numberToFactorise
-        , IEnumerable<int> exclusions = null)
+            , List<int> exclusions = null)
         {
             Random rand = new Random();
-            return rand.Next(2, numberToFactorise-1);
+
+
+
+            int countOfExclusions = 0;
+            if (exclusions != null)
+            {
+                exclusions.Sort();
+                countOfExclusions = exclusions.Count;
+            }
+            var result = rand.Next(2, numberToFactorise - 1 - countOfExclusions);
+            for (int i = 0; i < countOfExclusions; i++)
+            {
+                if (result < exclusions[i])
+                {
+                    return result;
+                }
+                result++;
+            }
+            return result;
         }
     }
 }
