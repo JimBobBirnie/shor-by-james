@@ -10,12 +10,12 @@ namespace ShorByJames
     public class ShorsAlgorithmTest
     {
         private Mock<IRandomNumberHelper> _randomNumberHelper;
-        private Mock<IPeriodFinder> _periodFinder;
+        private Mock<IModularExponentHelper> _modularExponentHelpler;
 
         public ShorsAlgorithmTest()
         {
             _randomNumberHelper = new Mock<IRandomNumberHelper>();
-            _periodFinder = new Mock<IPeriodFinder>();
+            _modularExponentHelpler = new Mock<IModularExponentHelper>();
         }
         [Fact]
         public void FactoriseGetsARandomNumberLessThanN()
@@ -25,7 +25,7 @@ namespace ShorByJames
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
                 .Returns(2)
                 .Verifiable();
-            var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
             factoriser.Factorise(numberToFactorise);
 
             _randomNumberHelper.VerifyAll();
@@ -37,7 +37,7 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
                 .Returns(5);
-            var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
             var result = factoriser.Factorise(numberToFactorise);
 
             Assert.Contains(3, result);
@@ -54,38 +54,38 @@ namespace ShorByJames
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
                 .Returns(4);
 
-            _periodFinder.Setup(s => s.FindPeriod(4, 15))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(4, 15))
                 .Returns(4)
                 .Verifiable();
 
-            var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
             var result = factoriser.Factorise(numberToFactorise);
-            _periodFinder.VerifyAll();
+            _modularExponentHelpler.VerifyAll();
         }
 
-        // [Fact]
-        // public void WhenPeriodIsOddFactoriseGetsADifferentRandomNumber()
-        // {
-        //     var numberToFactorise = 15;
-        //     _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
-        //         .Returns(5);
-        //     _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
-        //             , It.Is<List<int>>(exclusions => exclusions.Single() == 5)))
-        //         .Returns(2)
-        //         .Verifiable();
+        [Fact]
+        public void WhenPeriodIsOddFactoriseGetsADifferentRandomNumber()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+                .Returns(7);
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
+                    , It.Is<List<int>>(exclusions => exclusions != null && exclusions.Single() == 7)))
+                .Returns(2)
+                .Verifiable();
 
-        //     _periodFinder.Setup(s => s.FindPeriod(5, 15))
-        //         .Returns(7);
+            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
+                .Returns(7);
 
-        //     _periodFinder.Setup(s => s.FindPeriod(2, 15))
-        //         .Returns(4);
-        //     var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
+            _modularExponentHelpler.Setup(s => s.FindPeriod(2, 15))
+                .Returns(4);
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
 
-        //     var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise);
 
-        //     _randomNumberHelper.VerifyAll();
+            _randomNumberHelper.VerifyAll();
 
-        // }
+        }
 
     }
 

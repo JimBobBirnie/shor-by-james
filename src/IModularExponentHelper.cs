@@ -1,6 +1,6 @@
-namespace ShorByJames
+﻿namespace ShorByJames
 {
-    public interface IPeriodFinder
+    public interface IModularExponentHelper
     {
         int FindPeriod(int smallerNumber, int numberToFactorise);
     }

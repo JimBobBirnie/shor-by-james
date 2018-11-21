@@ -7,9 +7,9 @@ namespace ShorByJames
     public class Factoriser
     {
         private IRandomNumberHelper _randomNumberHelper;
-        private IPeriodFinder _periodFinder;
+        private IModularExponentHelper _periodFinder;
 
-        public Factoriser(IRandomNumberHelper randomNumberHelper, IPeriodFinder periodFinder)
+        public Factoriser(IRandomNumberHelper randomNumberHelper, IModularExponentHelper periodFinder)
         {
             _randomNumberHelper = randomNumberHelper;
             _periodFinder = periodFinder;
@@ -22,6 +22,12 @@ namespace ShorByJames
                 return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
             }
             var period = _periodFinder.FindPeriod(randomTestNumber, numberToFactorise);
+            if (period % 2 != 0)
+            {
+                List<int> numbersTriedAlready = new List<int> { period };
+                randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise, numbersTriedAlready);
+
+            }
             return new int[] { 0, 0 };
         }
     }

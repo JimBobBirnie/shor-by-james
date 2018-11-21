@@ -1,8 +1,8 @@
-using Xunit;
+﻿using Xunit;
 
 namespace ShorByJames
 {
-    public class PeriodFinderTest
+    public class ModularExponentHelperTest
     {
         [Theory]
         [InlineData(4, 15, 2)]
@@ -14,7 +14,7 @@ namespace ShorByJames
             , int numberToFactor
             , int expectedPeriod)
         {
-            var periodFinder = new PeriodFinder();
+            var periodFinder = new ModularExponentHelper();
             var result = periodFinder.FindPeriod(smallNumber,numberToFactor);
             Assert.Equal(expectedPeriod, result);
         }
