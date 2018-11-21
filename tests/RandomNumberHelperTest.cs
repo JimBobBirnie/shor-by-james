@@ -10,7 +10,7 @@ namespace ShorByJames
         {
             var RandomNumberHelper = new RandomNumberHelper();
             const int numberToFactorise = 15;
-            var result = RandomNumberHelper.GetRandomGreaterThanTwoLessThan(numberToFactorise);
+            var result = RandomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise);
             Assert.True(result > 0);
             Assert.True(result < 15);
 

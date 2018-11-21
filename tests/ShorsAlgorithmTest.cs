@@ -22,7 +22,7 @@ namespace ShorByJames
         {
             var numberToFactorise = 15;
 
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThan(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
                 .Returns(2)
                 .Verifiable();
             var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
@@ -35,7 +35,7 @@ namespace ShorByJames
         public void WhenRandomNumberDiviedsNWeAreDone()
         {
             var numberToFactorise = 15;
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThan(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
                 .Returns(5);
             var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
             var result = factoriser.Factorise(numberToFactorise);
@@ -51,7 +51,7 @@ namespace ShorByJames
         {
             var numberToFactorise = 15;
 
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThan(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
                 .Returns(4);
 
             _periodFinder.Setup(s => s.FindPeriod(4, 15))
@@ -63,17 +63,29 @@ namespace ShorByJames
             _periodFinder.VerifyAll();
         }
 
-        // [Fact]
-        // public void FactoriseGetsADifferentRandomNumberLessThanN()
-        // {
-        //     var numberToFactorise = 15;
-        //     var randomNumberHelper = new Mock<IRandomNumberHelper>();
-        //     randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThan(numberToFactorise, null))
-        //         .Returns(5)
-        //         .Verifiable();
-        //     randomNumberHelper.Setup(s=>s.GetRandomGreaterThanTwoLessThan(numberToFactorise
-        //     , It.Is<IEnumerable<int>>(exclusions=>exclusions.Single() == 5)));
-        // }
+        [Fact]
+        public void WhenPeriodIsOddFactoriseGetsADifferentRandomNumber()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+                .Returns(5);
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
+                    , It.Is<IEnumerable<int>>(exclusions => exclusions.Single() == 5)))
+                .Returns(2)
+                .Verifiable();
+
+            _periodFinder.Setup(s => s.FindPeriod(5, 15))
+                .Returns(7);
+
+            _periodFinder.Setup(s => s.FindPeriod(2, 15))
+                .Returns(4);
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _periodFinder.Object);
+
+            var result = factoriser.Factorise(numberToFactorise);
+
+            _randomNumberHelper.VerifyAll();
+
+        }
 
     }
 

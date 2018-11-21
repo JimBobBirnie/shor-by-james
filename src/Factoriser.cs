@@ -16,7 +16,7 @@ namespace ShorByJames
         }
         public IEnumerable<int> Factorise(int numberToFactorise)
         {
-            var randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThan(numberToFactorise);
+            var randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise);
             if (numberToFactorise % randomTestNumber == 0)
             {
                 return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
