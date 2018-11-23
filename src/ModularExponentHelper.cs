@@ -4,9 +4,10 @@ namespace ShorByJames
 {
     public class ModularExponentHelper : IModularExponentHelper
     {
-        public int FindPeriod(int smallerNumber, int numberToFactorise)
+        public int FindPeriod(int smallerNumber, int numberToFactorise
+        , bool useQuantumPeriodFinder)
         {
-            
+            DateTime startTime = DateTime.Now;
             int exponent = 1;
             int currentResult = smallerNumber;
             while (currentResult != 1)
@@ -14,6 +15,10 @@ namespace ShorByJames
                 exponent++;
                 currentResult = (currentResult * smallerNumber) % numberToFactorise;
             }
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+            Console.WriteLine("Time taken to find period of {0} mod {1} was:", smallerNumber, numberToFactorise);
+            Console.WriteLine("{0} milleseconds", elapsedTime.TotalMilliseconds);
+
             return exponent;
         }
 

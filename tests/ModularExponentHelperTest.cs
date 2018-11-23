@@ -15,7 +15,7 @@ namespace ShorByJames
             , int expectedPeriod)
         {
             var modularExponentHelper = new ModularExponentHelper();
-            var result = modularExponentHelper.FindPeriod(smallNumber, numberToFactor);
+            var result = modularExponentHelper.FindPeriod(smallNumber, numberToFactor, false);
             Assert.Equal(expectedPeriod, result);
         }
 

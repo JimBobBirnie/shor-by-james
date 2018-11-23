@@ -13,7 +13,7 @@ namespace ShorByJames
             _randomNumberHelper = randomNumberHelper;
             _modularExponentHelper = periodFinder;
         }
-        public IEnumerable<int> Factorise(int numberToFactorise)
+        public IEnumerable<int> Factorise(int numberToFactorise, bool useQuantumPeriodFinder)
         {
             Console.WriteLine("************** NEW FACTORISATION **************", numberToFactorise);
             Console.WriteLine("factorising {0}", numberToFactorise);
@@ -35,7 +35,7 @@ namespace ShorByJames
                     Console.WriteLine();
                     return new int[] { gcd, factor2 };
                 }
-                var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise);
+                var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise, useQuantumPeriodFinder);
                 Console.WriteLine("period of {0} mod {1} is {2}", randomTestNumber, numberToFactorise, period);
                 int halfPeriodModN = 0;
                 if (period % 2 != 0 ||

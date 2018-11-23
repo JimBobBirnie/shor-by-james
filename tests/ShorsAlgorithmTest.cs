@@ -28,7 +28,7 @@ namespace ShorByJames
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(1);
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
-            factoriser.Factorise(numberToFactorise);
+            factoriser.Factorise(numberToFactorise, false);
 
             _randomNumberHelper.VerifyAll();
         }
@@ -42,7 +42,7 @@ namespace ShorByJames
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(5);
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
 
             Assert.Contains(3, result);
             Assert.Contains(5, result);
@@ -60,7 +60,7 @@ namespace ShorByJames
                 .Returns(5);
             
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
 
             Assert.Contains(3, result);
             Assert.Contains(5, result);
@@ -77,12 +77,12 @@ namespace ShorByJames
                 .Returns(4);
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(1);
-            _modularExponentHelpler.Setup(s => s.FindPeriod(4, 15))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(4, 15, false))
                 .Returns(4)
                 .Verifiable();
 
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
             _modularExponentHelpler.VerifyAll();
         }
 
@@ -99,14 +99,14 @@ namespace ShorByJames
                 .Returns(2)
                 .Verifiable();
 
-            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15, false))
                 .Returns(7);
 
-            _modularExponentHelpler.Setup(s => s.FindPeriod(2, 15))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(2, 15, false))
                 .Returns(4);
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
 
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
 
             _randomNumberHelper.VerifyAll();
 
@@ -120,7 +120,7 @@ namespace ShorByJames
                 .Returns(7);
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(1);
-            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15, false))
                 .Returns(6);
 
             _modularExponentHelpler.Setup(s => s.GetExponentModN(7, 3, 15))
@@ -129,7 +129,7 @@ namespace ShorByJames
 
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
 
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
 
             _modularExponentHelpler.VerifyAll();
         }
@@ -143,7 +143,7 @@ namespace ShorByJames
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(1);
 
-            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15, false))
                 .Returns(6);
 
             _modularExponentHelpler.Setup(s => s.GetExponentModN(7, 3, 15))
@@ -156,7 +156,7 @@ namespace ShorByJames
 
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
 
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
 
             _randomNumberHelper.VerifyAll();
 
@@ -170,7 +170,7 @@ namespace ShorByJames
                 .Returns(7);
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(1);
-            _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>()))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>(), false))
                 .Returns(6);
             _modularExponentHelpler.Setup(s => s.GetExponentModN(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(4);
@@ -184,7 +184,7 @@ namespace ShorByJames
 
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
 
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
 
             _modularExponentHelpler.VerifyAll();
 
@@ -198,7 +198,7 @@ namespace ShorByJames
                 .Returns(7);
             _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(1);
-            _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>()))
+            _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>(), false))
                 .Returns(6);
             _modularExponentHelpler.Setup(s => s.GetExponentModN(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(4);
@@ -212,7 +212,7 @@ namespace ShorByJames
 
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
 
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
             Assert.Contains(firstExpectedFactor, result);
             Assert.Contains(secondExpectedFactor, result);
         }
@@ -225,7 +225,7 @@ namespace ShorByJames
         {
             var factoriser = new Factoriser(new RandomNumberHelper()
                 , new ModularExponentHelper());
-            var result = factoriser.Factorise(numberToFactorise);
+            var result = factoriser.Factorise(numberToFactorise, false);
             Assert.Contains(expectedFactor1, result);
             Assert.Contains(expectedFactor2, result);
         }
