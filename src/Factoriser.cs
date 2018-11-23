@@ -15,12 +15,14 @@ namespace ShorByJames
         }
         public IEnumerable<int> Factorise(int numberToFactorise)
         {
+            Console.WriteLine("************** NEW FACTORISATION **************", numberToFactorise);
             Console.WriteLine("factorising {0}", numberToFactorise);
             List<int> numbersTriedAlready = new List<int>();
             int randomTestNumber = 0;
             do
             {
                 randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise, numbersTriedAlready);
+                Console.WriteLine();
                 Console.WriteLine("random number chosen: {0}", randomTestNumber);
                 // if (numberToFactorise % randomTestNumber == 0)
                 int gcd = 1;
@@ -28,7 +30,10 @@ namespace ShorByJames
                 {
                     //we've got lucky!!
                     Console.WriteLine("We got lucky picking {0} as the random number", randomTestNumber);
-                    return new int[] { gcd, numberToFactorise / gcd };
+                    var factor2 = numberToFactorise / gcd;
+                    Console.WriteLine("Factors are [{0}, {1}]", gcd, factor2);
+                    Console.WriteLine();
+                    return new int[] { gcd, factor2 };
                 }
                 var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise);
                 Console.WriteLine("period of {0} mod {1} is {2}", randomTestNumber, numberToFactorise, period);
@@ -46,6 +51,7 @@ namespace ShorByJames
                     int firstFactor = _modularExponentHelper.GetGCD(halfPeriodModN - 1, numberToFactorise);
                     int secondFactor = _modularExponentHelper.GetGCD(halfPeriodModN + 1, numberToFactorise);
                     Console.WriteLine("Factors are [{0}, {1}]", firstFactor, secondFactor);
+                    Console.WriteLine();
                     return new int[] { firstFactor, secondFactor };
                 }
             } while (true);

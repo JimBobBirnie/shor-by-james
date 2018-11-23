@@ -10,7 +10,7 @@ namespace ShorByJames
         static void Main(string[] args)
         {
             var factoriser = new Factoriser(new RandomNumberHelper(), new ModularExponentHelper());
-            factoriser.Factorise(15);
+            factoriser.Factorise(21);
         }
     }
 }
