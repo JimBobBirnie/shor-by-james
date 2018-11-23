@@ -6,6 +6,7 @@ namespace ShorByJames
     {
         public int FindPeriod(int smallerNumber, int numberToFactorise)
         {
+            
             int exponent = 1;
             int currentResult = smallerNumber;
             while (currentResult != 1)
