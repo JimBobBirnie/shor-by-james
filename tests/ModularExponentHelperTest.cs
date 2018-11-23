@@ -33,8 +33,17 @@ namespace ShorByJames
             Assert.Equal(expected, result);
         }
 
+        [Theory]
+        [InlineData(10, 5, 5)]
+        [InlineData(35, 14, 7)]
+        [InlineData(104, 247,13)]
+        [InlineData(247, 104,13)]
+        public void GetGCDReturnsRightResults(int x, int y, int expected)
+        {
+            var modularExponentHelper = new ModularExponentHelper();
+            var result = modularExponentHelper.GetGCD(x, y);
+            Assert.Equal(expected, result);
+        }
     }
-
-
 }
 

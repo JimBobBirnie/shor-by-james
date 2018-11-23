@@ -30,7 +30,6 @@ namespace ShorByJames
                      == numberToFactorise - 1)
                 {
                     numbersTriedAlready.Add(randomTestNumber);
-
                 }
                 else
                 {
