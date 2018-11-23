@@ -25,6 +25,8 @@ namespace ShorByJames
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(2)
                 .Verifiable();
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
             factoriser.Factorise(numberToFactorise);
 
@@ -37,6 +39,26 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(5);
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(5);
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
+            var result = factoriser.Factorise(numberToFactorise);
+
+            Assert.Contains(3, result);
+            Assert.Contains(5, result);
+            Assert.True(result.Count() == 2);
+
+        }
+
+          [Fact]
+        public void WhenGCDRandomNumberAndNumberToFactoriseNotOneWeAreDone()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
+                .Returns(10);
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(5);
+            
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
             var result = factoriser.Factorise(numberToFactorise);
 
@@ -53,7 +75,8 @@ namespace ShorByJames
 
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(4);
-
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
             _modularExponentHelpler.Setup(s => s.FindPeriod(4, 15))
                 .Returns(4)
                 .Verifiable();
@@ -69,6 +92,8 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.Is<List<int>>(l => l.Count == 0)))
                 .Returns(7);
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
                     , It.Is<List<int>>(exclusions => exclusions != null && exclusions.Count > 0 && exclusions.Single() == 7)))
                 .Returns(2)
@@ -93,7 +118,8 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(7);
-
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
             _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
                 .Returns(6);
 
@@ -114,6 +140,8 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(7);
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
 
             _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
                 .Returns(6);
@@ -140,6 +168,8 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(7);
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
             _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(6);
             _modularExponentHelpler.Setup(s => s.GetExponentModN(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
@@ -166,6 +196,8 @@ namespace ShorByJames
             var numberToFactorise = 15;
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(7);
+            _modularExponentHelpler.Setup(s=>s.GetGCD(It.IsAny<int>(),It.IsAny<int>()))
+                .Returns(1);
             _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(6);
             _modularExponentHelpler.Setup(s => s.GetExponentModN(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))

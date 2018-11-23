@@ -22,9 +22,13 @@ namespace ShorByJames
             {
                 randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise, numbersTriedAlready);
                 Console.WriteLine("random number chosen: {0}", randomTestNumber);
-                if (numberToFactorise % randomTestNumber == 0)
+                // if (numberToFactorise % randomTestNumber == 0)
+                int gcd = 1;
+                if ((gcd = _modularExponentHelper.GetGCD(numberToFactorise, randomTestNumber)) != 1)
                 {
-                    return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
+                    //we've got lucky!!
+                    Console.WriteLine("We got lucky picking {0} as the random number", randomTestNumber);
+                    return new int[] { gcd, numberToFactorise / gcd };
                 }
                 var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise);
                 Console.WriteLine("period of {0} mod {1} is {2}", randomTestNumber, numberToFactorise, period);

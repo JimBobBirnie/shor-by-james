@@ -38,6 +38,7 @@ namespace ShorByJames
         [InlineData(35, 14, 7)]
         [InlineData(104, 247,13)]
         [InlineData(247, 104,13)]
+        [InlineData(23, 13, 1)]
         public void GetGCDReturnsRightResults(int x, int y, int expected)
         {
             var modularExponentHelper = new ModularExponentHelper();
