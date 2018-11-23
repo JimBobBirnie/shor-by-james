@@ -14,7 +14,7 @@ namespace ShorByJames
 
 
             int countOfExclusions = 0;
-            if (exclusions != null)
+            if (exclusions != null && exclusions.Count > 0)
             {
                 exclusions.Sort();
                 countOfExclusions = exclusions.Count;

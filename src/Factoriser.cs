@@ -7,26 +7,27 @@ namespace ShorByJames
     public class Factoriser
     {
         private IRandomNumberHelper _randomNumberHelper;
-        private IModularExponentHelper _periodFinder;
+        private IModularExponentHelper _modularExponentHelper;
 
         public Factoriser(IRandomNumberHelper randomNumberHelper, IModularExponentHelper periodFinder)
         {
             _randomNumberHelper = randomNumberHelper;
-            _periodFinder = periodFinder;
+            _modularExponentHelper = periodFinder;
         }
         public IEnumerable<int> Factorise(int numberToFactorise)
         {
-            var randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise);
+                List<int> numbersTriedAlready = new List<int> ();
+            var randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise, numbersTriedAlready);
             if (numberToFactorise % randomTestNumber == 0)
             {
                 return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
             }
-            var period = _periodFinder.FindPeriod(randomTestNumber, numberToFactorise);
+            var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise);
             if (period % 2 != 0 ||
-                _periodFinder.GetExponentModN(randomTestNumber, period / 2, numberToFactorise)
+                _modularExponentHelper.GetExponentModN(randomTestNumber, period / 2, numberToFactorise)
                  == numberToFactorise - 1)
             {
-                List<int> numbersTriedAlready = new List<int> { period };
+                numbersTriedAlready.Add(randomTestNumber);
                 randomTestNumber = _randomNumberHelper.GetRandomGreaterThanTwoLessThanN(numberToFactorise, numbersTriedAlready);
 
             }

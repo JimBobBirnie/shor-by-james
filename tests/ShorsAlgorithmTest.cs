@@ -22,7 +22,7 @@ namespace ShorByJames
         {
             var numberToFactorise = 15;
 
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(2)
                 .Verifiable();
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
@@ -35,7 +35,7 @@ namespace ShorByJames
         public void WhenRandomNumberDiviedsNWeAreDone()
         {
             var numberToFactorise = 15;
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(5);
             var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
             var result = factoriser.Factorise(numberToFactorise);
@@ -51,7 +51,7 @@ namespace ShorByJames
         {
             var numberToFactorise = 15;
 
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(4);
 
             _modularExponentHelpler.Setup(s => s.FindPeriod(4, 15))
@@ -67,10 +67,10 @@ namespace ShorByJames
         public void WhenPeriodIsOddFactoriseGetsADifferentRandomNumber()
         {
             var numberToFactorise = 15;
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.Is<List<int>>(l=>l.Count == 0)))
                 .Returns(7);
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
-                    , It.Is<List<int>>(exclusions => exclusions != null && exclusions.Single() == 7)))
+                    , It.Is<List<int>>(exclusions => exclusions != null && exclusions.Count > 0 && exclusions.Single() == 7)))
                 .Returns(2)
                 .Verifiable();
 
@@ -91,7 +91,7 @@ namespace ShorByJames
         public void WhenPeriodIsEvenFactoriseChecksHalfPeriod()
         {
             var numberToFactorise = 15;
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, null))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
                 .Returns(7);
 
             _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
@@ -107,6 +107,33 @@ namespace ShorByJames
 
             _modularExponentHelpler.VerifyAll();
         }
+
+        [Fact]
+        public void WhenHalfPeriodExponentIsMinusOneFactoriseGetsADifferentRandomNumber()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
+                .Returns(7);
+
+            _modularExponentHelpler.Setup(s => s.FindPeriod(7, 15))
+                .Returns(6);
+
+            _modularExponentHelpler.Setup(s => s.GetExponentModN(7, 3, 15))
+                .Returns(14);
+
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
+                   , It.Is<List<int>>(exclusions => exclusions != null && exclusions.Count > 0 && exclusions.Single() == 7)))
+               .Returns(2)
+               .Verifiable();
+
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
+
+            var result = factoriser.Factorise(numberToFactorise);
+
+            _randomNumberHelper.VerifyAll();
+
+        }
+
 
     }
 
