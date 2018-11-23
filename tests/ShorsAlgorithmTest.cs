@@ -185,7 +185,18 @@ namespace ShorByJames
             Assert.Contains(secondExpectedFactor, result);
         }
 
-
+        [Theory]
+        [InlineData(15,3,5)]
+        [InlineData(21,3,7)]
+        public void EndToEndTestsOfClassicalShorImplementation(int numberToFactorise
+            , int expectedFactor1, int expectedFactor2)
+        {
+            var factoriser = new Factoriser(new RandomNumberHelper()
+                , new ModularExponentHelper());
+            var result = factoriser.Factorise(numberToFactorise);
+            Assert.Contains(expectedFactor1, result);
+            Assert.Contains(expectedFactor2, result);
+        }
     }
 
 
