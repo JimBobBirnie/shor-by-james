@@ -1,11 +1,32 @@
 ﻿using System;
+using Microsoft.Quantum.Simulation.Simulators;
 
 namespace ShorByJames
 {
     public class ModularExponentHelper : IModularExponentHelper
     {
         public int FindPeriod(int smallerNumber, int numberToFactorise
-        , bool useQuantumPeriodFinder)
+            , bool useQuantumPeriodFinder)
+        {
+            if (useQuantumPeriodFinder)
+            {
+                return FindPeriodQuantum(smallerNumber, numberToFactorise);
+            }
+            else
+            {
+                return FindPeriodClassical(smallerNumber, numberToFactorise);
+            }
+        }
+
+        private int FindPeriodQuantum(int smallerNumber, int numberToFactorise)
+        {
+            using (QuantumSimulator sim = new QuantumSimulator())
+            {
+               return  (int)EstimatePeriod.Run(sim, smallerNumber,numberToFactorise, false).Result;
+            }
+        }
+
+        private int FindPeriodClassical(int smallerNumber, int numberToFactorise)
         {
             DateTime startTime = DateTime.Now;
             int exponent = 1;

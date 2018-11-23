@@ -35,6 +35,7 @@ namespace ShorByJames
                     Console.WriteLine();
                     return new int[] { gcd, factor2 };
                 }
+                
                 var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise, useQuantumPeriodFinder);
                 Console.WriteLine("period of {0} mod {1} is {2}", randomTestNumber, numberToFactorise, period);
                 int halfPeriodModN = 0;
