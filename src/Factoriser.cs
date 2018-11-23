@@ -25,15 +25,18 @@ namespace ShorByJames
                     return new int[] { randomTestNumber, numberToFactorise / randomTestNumber };
                 }
                 var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise);
+                int halfPeriodModN = 0;
                 if (period % 2 != 0 ||
-                    _modularExponentHelper.GetExponentModN(randomTestNumber, period / 2, numberToFactorise)
+                    (halfPeriodModN = _modularExponentHelper.GetExponentModN(randomTestNumber, period / 2, numberToFactorise))
                      == numberToFactorise - 1)
                 {
                     numbersTriedAlready.Add(randomTestNumber);
                 }
                 else
                 {
-                    return new int[] { 0, 0 };
+                    int firstFactor = _modularExponentHelper.GetGCD(halfPeriodModN - 1, numberToFactorise);
+                    int secondFactor = _modularExponentHelper.GetGCD(halfPeriodModN + 1, numberToFactorise);
+                    return new int[] { firstFactor, secondFactor };
                 }
             } while (true);
         }

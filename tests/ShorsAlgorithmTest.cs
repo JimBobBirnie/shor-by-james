@@ -67,7 +67,7 @@ namespace ShorByJames
         public void WhenPeriodIsOddFactoriseGetsADifferentRandomNumber()
         {
             var numberToFactorise = 15;
-            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.Is<List<int>>(l=>l.Count == 0)))
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.Is<List<int>>(l => l.Count == 0)))
                 .Returns(7);
             _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise
                     , It.Is<List<int>>(exclusions => exclusions != null && exclusions.Count > 0 && exclusions.Single() == 7)))
@@ -132,6 +132,57 @@ namespace ShorByJames
 
             _randomNumberHelper.VerifyAll();
 
+        }
+
+        [Fact]
+        public void WhenPeriodIsEvenAndHalfPeriodNotMinusOneFactoriseGetsGCDs()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
+                .Returns(7);
+            _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(6);
+            _modularExponentHelpler.Setup(s => s.GetExponentModN(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(4);
+            //half period exponent is not minus 1 - so the half period exponent +-1 is used to get factors
+            _modularExponentHelpler.Setup(s => s.GetGCD(3, 15))
+                .Returns(0)
+                .Verifiable();
+            _modularExponentHelpler.Setup(s => s.GetGCD(5, 15))
+                .Returns(0)
+                .Verifiable();
+
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
+
+            var result = factoriser.Factorise(numberToFactorise);
+
+            _modularExponentHelpler.VerifyAll();
+
+        }
+
+        [Fact]
+        public void FactoriseReturnsFactors()
+        {
+            var numberToFactorise = 15;
+            _randomNumberHelper.Setup(s => s.GetRandomGreaterThanTwoLessThanN(numberToFactorise, It.IsAny<List<int>>()))
+                .Returns(7);
+            _modularExponentHelpler.Setup(s => s.FindPeriod(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(6);
+            _modularExponentHelpler.Setup(s => s.GetExponentModN(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(4);
+            //half period exponent is not minus 1 - so the half period exponent +-1 is used to get factors
+            var firstExpectedFactor = 23;
+            var secondExpectedFactor = 17;
+            _modularExponentHelpler.Setup(s => s.GetGCD(3, 15))
+                .Returns(firstExpectedFactor);
+            _modularExponentHelpler.Setup(s => s.GetGCD(5, 15))
+                .Returns(secondExpectedFactor);
+
+            var factoriser = new Factoriser(_randomNumberHelper.Object, _modularExponentHelpler.Object);
+
+            var result = factoriser.Factorise(numberToFactorise);
+            Assert.Contains(firstExpectedFactor, result);
+            Assert.Contains(secondExpectedFactor, result);
         }
 
 
