@@ -16,7 +16,7 @@ namespace ShorByJames
             //804509 = 887 * 907
             var factoriser = new Factoriser(new RandomNumberHelper()
                 , new ModularExponentHelper());
-            factoriser.Factorise(21, false);
+            factoriser.Factorise(15, true);
         }
     }
 }
