@@ -19,7 +19,7 @@ namespace ShorByJames
                 exclusions.Sort();
                 countOfExclusions = exclusions.Count;
             }
-            var result = rand.Next(2, numberToFactorise - 1 - countOfExclusions);
+            var result = rand.Next(3, numberToFactorise - 1 - countOfExclusions);
             for (int i = 0; i < countOfExclusions; i++)
             {
                 if (result < exclusions[i])
