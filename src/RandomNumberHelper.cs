@@ -6,12 +6,9 @@ namespace ShorByJames
 {
     public class RandomNumberHelper : IRandomNumberHelper
     {
-        public int GetRandomGreaterThanTwoLessThanN(int numberToFactorise
-            , List<int> exclusions = null)
+        public int GetRandomGreaterThanTwoLessThanN(int numberToFactorise, List<int> exclusions = null)
         {
             Random rand = new Random();
-
-
 
             int countOfExclusions = 0;
             if (exclusions != null && exclusions.Count > 0)

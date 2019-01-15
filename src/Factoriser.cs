@@ -36,24 +36,31 @@ namespace ShorByJames
                     return new int[] { gcd, factor2 };
                 }
                 
-                var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise, useQuantumPeriodFinder);
-                Console.WriteLine("period of {0} mod {1} is {2}", randomTestNumber, numberToFactorise, period);
-                int halfPeriodModN = 0;
-                if (period % 2 != 0 ||
-                    (halfPeriodModN = _modularExponentHelper.GetExponentModN(randomTestNumber, period / 2, numberToFactorise))
-                     == numberToFactorise - 1)
-                {
-                    Console.WriteLine("Looping again - period was odd or half period exponent was N-1");
-                    numbersTriedAlready.Add(randomTestNumber);
+                try {
+                    var period = _modularExponentHelper.FindPeriod(randomTestNumber, numberToFactorise, useQuantumPeriodFinder);
+                    Console.WriteLine("period of {0} mod {1} is {2}", randomTestNumber, numberToFactorise, period);
+                    int halfPeriodModN = 0;
+                    if (period % 2 != 0 ||
+                        (halfPeriodModN = _modularExponentHelper.GetExponentModN(randomTestNumber, period / 2, numberToFactorise))
+                        == numberToFactorise - 1)
+                    {
+                        Console.WriteLine("Looping again - period was odd or half period exponent was N-1");
+                        numbersTriedAlready.Add(randomTestNumber);
+                    }
+                    else
+                    {
+                        Console.WriteLine("getting factors!");
+                        int firstFactor = _modularExponentHelper.GetGCD(halfPeriodModN - 1, numberToFactorise);
+                        int secondFactor = _modularExponentHelper.GetGCD(halfPeriodModN + 1, numberToFactorise);
+                        Console.WriteLine("Factors are [{0}, {1}]", firstFactor, secondFactor);
+                        Console.WriteLine();
+                        return new int[] { firstFactor, secondFactor };
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("getting factors!");
-                    int firstFactor = _modularExponentHelper.GetGCD(halfPeriodModN - 1, numberToFactorise);
-                    int secondFactor = _modularExponentHelper.GetGCD(halfPeriodModN + 1, numberToFactorise);
-                    Console.WriteLine("Factors are [{0}, {1}]", firstFactor, secondFactor);
+                catch (Exception) {
+                    Console.WriteLine("Could not find period using estimation, trying another number! (Numerator of dyadic fraction was 0)");
                     Console.WriteLine();
-                    return new int[] { firstFactor, secondFactor };
+                    numbersTriedAlready.Add(randomTestNumber);
                 }
             } while (true);
         }
